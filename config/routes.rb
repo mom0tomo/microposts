@@ -7,12 +7,17 @@ Rails.application.routes.draw do
 
   get 'signup', to: 'users#new'
   resources :users, only: [:index, :show, :new, :create] do
+    # フォロー中のユーザとフォローされているユーザ一覧を表示するページは必要
     member do
       get :followings
       get :followers
+      get :likes
     end
   end
 
-  resources :microposts, only: [:create, :destroy]
+  resources :microposts, only: [:index, :create, :destroy]
+
+  # 中間テーブルなのでindexやshowはない
   resources :relationships, only: [:create, :destroy]
+  resources :likes, only: [:create, :destroy]
 end

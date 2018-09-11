@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :require_user_logged_in, except: [:new, :create]
+
   def index
     require_user_logged_in
     @users = User.all.page(params[:page])
@@ -7,7 +9,7 @@ class UsersController < ApplicationController
   def show
     require_user_logged_in
     @user = User.find(params[:id])
-    @microposts = @user.microposts.order('created_at DESC').page(params[:page])
+    @microposts = @user.feed_microposts.order('created_at DESC').page(params[:page])
     counts(@user)
   end
 
@@ -39,9 +41,14 @@ class UsersController < ApplicationController
     counts(@user)
   end
 
+  def likes
+    @user = User.find(params[:id])
+    @microposts = @user.likes.page(params[:page])
+  end
+
   private
 
     def user_params
-      paramas.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 end
