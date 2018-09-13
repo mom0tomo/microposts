@@ -5,6 +5,10 @@ class MicropostsController < ApplicationController
     redirect_to root_url
   end
 
+  def show
+    redirect_to root_url
+  end
+
   def create
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
@@ -18,7 +22,7 @@ class MicropostsController < ApplicationController
   end
 
   def destroy
-    @micropost = current_user.microposts.find_by(id: params[:id])
+    @micropost = current_user.microposts.find(params[:id])
     redirect_to root_url unless @micropost
     @micropost.destroy
     flash[:success] = 'メッセージを削除しました。'
@@ -29,5 +33,12 @@ class MicropostsController < ApplicationController
 
     def micropost_params
       params.require(:micropost).permit(:content)
+    end
+  
+    def correct_user
+      @micropost = current_user.microposts.find_by(id: params[:id])
+      unless @micropost
+        redirect_to root_url
+      end
     end
 end

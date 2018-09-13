@@ -2,7 +2,8 @@ class LikesController < ApplicationController
   before_action :require_user_logged_in
   
   def index
-    redirect_to root_url
+    @user = current_user
+    @microposts = current_user.likes.microposts
   end
 
   def create

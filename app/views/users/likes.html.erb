@@ -1,8 +1,26 @@
 <div class="row">
   <div class="col-xs-12">
-    <div class="<%= 'active' if current_page?(user_path(@user)) %>"><%= link_to likes_user_path(@user.id) do %>Likes<% end %></div>
     <% @microposts.each do |micropost| %>
-      <%= micropost.id %>
+      <ul class="media-list">
+          <li class="media">
+            <div class="media-left">
+              <img class="media-object img-rounded" src="<%= gravatar_url(micropost.user, { size: 50 }) %>" alt="">
+            </div>
+            <div class="media-body">
+              <div>
+                <%= link_to micropost.user.name, user_path(micropost.user) %> <span class="text-muted">posted at <%= micropost.created_at %></span>
+              </div>
+              <div><%= micropost.content %></div>
+              <div>
+                <%= render 'likes/like_button', micropost: micropost, class: 'btn btn-default btn-xs' %>
+                <% if current_user == micropost.user %>
+                  <%= link_to "Delete", micropost, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-xs' %>
+                <% end %>
+              </div>
+            </div>
+          </li>
+        <%= paginate @microposts %>
+      </ul>
     <% end %>
   </div>
 </div>

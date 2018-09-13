@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :microposts, only: [:index, :create, :destroy]
+  resources :microposts, only: [:index, :show, :create, :destroy]
 
   # 中間テーブルなのでindexやshowはない
   resources :relationships, only: [:create, :destroy]
