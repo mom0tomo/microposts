@@ -14,8 +14,7 @@ class User < ApplicationRecord
 
   has_many :microposts
   has_many :likes
-  has_many :microposts, through: :likes
-  
+  has_many :like_microposts, through: :likes, source: :micropost
 
   def follow(other_user)
     unless self == other_user

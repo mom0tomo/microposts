@@ -43,7 +43,7 @@ class UsersController < ApplicationController
 
   def likes
     @user = User.find(params[:id])
-    @microposts = @user.microposts.page(params[:page])
+    @like_microposts = @user.like_microposts.page(params[:page]).order('created_at DESC').page(params[:page])
   end
 
   private

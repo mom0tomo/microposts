@@ -1,25 +1,25 @@
 <div class="row">
   <div class="col-xs-12">
-    <% @microposts.each do |micropost| %>
+    <% @like_microposts.each do |like_micropost| %>
       <ul class="media-list">
           <li class="media">
             <div class="media-left">
-              <img class="media-object img-rounded" src="<%= gravatar_url(micropost.user, { size: 50 }) %>" alt="">
+              <img class="media-object img-rounded" src="<%= gravatar_url(like_micropost.user, { size: 50 }) %>" alt="">
             </div>
             <div class="media-body">
               <div>
-                <%= link_to micropost.user.name, user_path(micropost.user) %> <span class="text-muted">posted at <%= micropost.created_at %></span>
+                <%= link_to like_micropost.user.name, user_path(like_micropost.user) %> <span class="text-muted">posted at <%= like_micropost.created_at %></span>
               </div>
-              <div><%= micropost.content %></div>
+              <div><%= like_micropost.content %></div>
               <div>
-                <%= render 'likes/like_button', micropost: micropost, class: 'btn btn-default btn-xs' %>
-                <% if current_user == micropost.user %>
-                  <%= link_to "Delete", micropost, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-xs' %>
+                <%= render 'likes/like_button', micropost: like_micropost, class: 'btn btn-default btn-xs' %>
+                <% if current_user == like_micropost.user %>
+                  <%= link_to "Delete", like_micropost, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-xs' %>
                 <% end %>
               </div>
             </div>
           </li>
-        <%= paginate @microposts %>
+        <%= paginate @like_microposts %>
       </ul>
     <% end %>
   </div>

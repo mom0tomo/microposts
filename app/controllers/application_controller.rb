@@ -9,10 +9,4 @@ class ApplicationController < ActionController::Base
     def require_user_logged_in
       redirect_to login_url unless logged_in?
     end
-    
-    def counts(user)
-       @count_microposts = user.feed_microposts.count
-       @count_followings = user.followings.count
-       @count_followers = user.followers.count
-    end
 end
