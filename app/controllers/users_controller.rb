@@ -10,7 +10,6 @@ class UsersController < ApplicationController
     require_user_logged_in
     @user = User.find(params[:id])
     @microposts = @user.feed_microposts.order('created_at DESC').page(params[:page])
-    counts(@user)
   end
 
   def new
