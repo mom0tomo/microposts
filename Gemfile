@@ -56,6 +56,6 @@ gem 'kaminari'
 gem 'bcrypt'
 
 group :production do
-  gem 'pg', '0.21.0'
+  gem 'pg', '1.1.4'
 end
 
